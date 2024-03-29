@@ -3,22 +3,23 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-  "title": "Lasting Lovers",
+  "title": "New Song15",
   "artists": [
     "Sigla"
   ],
   "releasedDate": "2022-09-29",
-  "duration": "02:34"
+  "duration": "02:34",
+  "lyrics": ""
 }
 
 
 ###
 # Get all songs
-GET http://localhost:3000/songs
+GET http://localhost:3000/songs?page=1
 
 ###
 # Get song by id
-GET http://localhost:3000/songs/1
+GET http://localhost:3000/songs/3
 
 
 ###

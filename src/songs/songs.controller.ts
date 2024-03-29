@@ -9,30 +9,25 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
-  Inject,
   Scope,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongsDto } from './dto/create-songs.dto';
-import { Connection } from '../common/constants/connection';
+import { Song } from './song.entity';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { UpdateSongDto } from './dto/update-song.dto';
 
 @Controller({ path: 'songs', scope: Scope.REQUEST })
 export class SongsController {
-  constructor(
-    private songsService: SongsService,
-    @Inject('CONNECTION') private connection: Connection,
-  ) {
-    console.log('this.connection', this.connection);
-  }
+  constructor(private songsService: SongsService) {}
 
   @Post()
-  create(@Body() createSong: CreateSongsDto) {
-    console.log('this.songsService', this.songsService);
+  create(@Body() createSong: CreateSongsDto): Promise<Song> {
     return this.songsService.create(createSong);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Song[]> {
     try {
       return this.songsService.findAll();
     } catch (e) {
@@ -53,17 +48,30 @@ export class SongsController {
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
     id: number,
-  ) {
-    return `find song on the based id: ${typeof id}`;
+  ): Promise<Song> {
+    return this.songsService.findOne(id);
   }
 
   @Put(':id')
-  update() {
-    return 'update song on the based id';
+  update(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+    @Body() updateSongDTO: UpdateSongDto,
+  ): Promise<UpdateResult> {
+    return this.songsService.update(id, updateSongDTO);
   }
 
   @Delete(':id')
-  delete() {
-    return 'delete song on the based id';
+  delete(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ): Promise<DeleteResult> {
+    return this.songsService.remove(id);
   }
 }

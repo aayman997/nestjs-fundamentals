@@ -7,7 +7,9 @@ import { SongsController } from './songs/songs.controller';
 import { DevConfigService } from './common/providers/DevConfigService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { Song } from './songs/song.entity';
+import { Song } from './songs/songs.entity';
+import { Artist } from './artists/artists.entity';
+import { User } from './users/users.entity';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -27,7 +29,7 @@ const proConfig = { port: 4000 };
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [Song],
+      entities: [Song, Artist, User],
       synchronize: true,
     }),
     SongsModule,

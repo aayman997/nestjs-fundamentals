@@ -13,8 +13,8 @@ import {
   DefaultValuePipe,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
-import { CreateSongsDto } from './dto/create-songs.dto';
-import { Song } from './song.entity';
+import { CreateSongDto } from './dto/create-song.dto';
+import { Song } from './songs.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { UpdateSongDto } from './dto/update-song.dto';
 import { Pagination } from 'nestjs-typeorm-paginate';
@@ -24,7 +24,7 @@ export class SongsController {
   constructor(private songsService: SongsService) {}
 
   @Post()
-  create(@Body() createSong: CreateSongsDto): Promise<Song> {
+  create(@Body() createSong: CreateSongDto): Promise<Song> {
     return this.songsService.create(createSong);
   }
 

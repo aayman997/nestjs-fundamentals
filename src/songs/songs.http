@@ -3,13 +3,14 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-  "title": "New Song15",
+  "title": "You for me",
   "artists": [
-    "Sigla"
+    1,
+    2
   ],
-  "releasedDate": "2022-09-29",
+  "releasedDate": "2023-05-11",
   "duration": "02:34",
-  "lyrics": ""
+  "lyrics": "I shoulda told you that I wanted you for me You make it really hard to sleep You keep me up Baby, you're my adrenaline Brought out this other side of me You don't even know Controlling my whole anatomy, oh Fingers are holding you right at the edge You're slipping out of my hands Keeping my secrets all up in my head I'm scared that you won't want me back, oh I dance to every song like it's about ya I drink 'til I kiss someone who looks like ya I wish that I was honest when I had you I shoulda told you that I wanted you for me I dance to every song like it's about ya I drink 'til I kiss someone who looks like ya I wish that I was honest when I had you I shoulda told you that I wanted you for me Yeah, yeah That I wanted you for me I shoulda told you that I wanted you for me I'm in this party just because Tears in my cup Swallow it down to feel the rush I'm on the other side of town Spinnin' around Don't even know you let me down, oh Fingers are holding you right at the edge You're slipping out of my hands Keeping my secrets all up in my head I'm scared that you won't want me back, oh Yeah I dance to every song like it's about ya I drink 'til I kiss someone who looks like ya I wish that I was honest when I had you I shoulda told you that I wanted you for me Innocent lovers We hold on to one another Let's rediscover You are the one for me, oh I dance to every song like it's about ya I drink 'til I kiss someone who looks like ya I wish that I was honest when I had you I shoulda told you that I wanted you for me, yeah I dance now, about you I kiss, drinks, look like you (who looks like you) One kiss, wish I had you (honest when I had you) I shoulda told you that I wanted you for me"
 }
 
 
@@ -19,18 +20,21 @@ GET http://localhost:3000/songs?page=1
 
 ###
 # Get song by id
-GET http://localhost:3000/songs/3
+GET http://localhost:3000/songs/18
 
 
 ###
 # Update a song
-PUT http://localhost:3000/songs/1
+PUT http://localhost:3000/songs/18
 Content-Type: application/json
 
 {
+  "artists": [
+    2
+  ]
 }
 
 
 ###
 # Delete a song
-DELETE http://localhost:3000/songs/1
+DELETE http://localhost:3000/songs/16

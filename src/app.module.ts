@@ -10,6 +10,8 @@ import { ConfigModule } from '@nestjs/config';
 import { Song } from './songs/songs.entity';
 import { Artist } from './artists/artists.entity';
 import { User } from './users/users.entity';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -33,6 +35,8 @@ const proConfig = { port: 4000 };
       synchronize: true,
     }),
     SongsModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [

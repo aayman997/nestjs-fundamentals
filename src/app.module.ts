@@ -23,6 +23,7 @@ const proConfig = { port: 4000 };
         `.env.${process.env.NODE_ENV || 'development'}.local`,
         `.env.${process.env.NODE_ENV || 'development'}`,
       ],
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

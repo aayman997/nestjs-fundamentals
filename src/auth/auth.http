@@ -3,9 +3,9 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "firstName": "Ahmed",
-  "lastName": "Ayman",
-  "email": "ahabdelaziz971@gmail.com",
+  "firstName": "Martin",
+  "lastName": "Garrix",
+  "email": "martingarrix@gmail.com",
   "password": "123456"
 }
 
@@ -14,7 +14,17 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "ahabdelaziz971@gmail.com",
+  "email": "martingarrix@gmail.com",
+  "password": "123456"
+}
+
+### update user
+PATCH http://localhost:3000/auth/update-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbmdhcnJpeEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImlhdCI6MTcxMjUzMTMyNSwiZXhwIjoxNzEyNjE3NzI1fQ.pNkPnv3Zozg940ETNMil6eSyM8agZlUhIs6sgInaw9c
+
+{
+  "oldPassword": "123456",
   "password": "123456"
 }
 
@@ -22,4 +32,4 @@ Content-Type: application/json
 ### Get User
 GET http://localhost:3000/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFoYWJkZWxheml6OTcxQGdtYWlsLmNvbSIsInN1YiI6NiwiaWF0IjoxNzEyMzY0NzA2LCJleHAiOjE3MTI0NTExMDZ9.QJRMQ7Ga5YjnLayYX8iK_Ja5f84AEFILRLvJlBsEjn0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbmdhcnJpeEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoxMywiaWF0IjoxNzEyNTMxMzM4LCJleHAiOjE3MTI2MTc3Mzh9.ymoWuHPKhIwyCA-u8-S2rrfVOk7v7bhZdHMoxErUNeo

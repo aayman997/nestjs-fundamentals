@@ -5,6 +5,7 @@ import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigService } from '@nestjs/config';
+import { ArtistsModule } from '../artists/artists.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
     UsersModule,
+    ArtistsModule,
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],

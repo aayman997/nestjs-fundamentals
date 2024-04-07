@@ -1,16 +1,26 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  HttpException,
+  HttpStatus,
+  ConflictException,
+} from '@nestjs/common';
 import { CreateUserDTO } from '../auth/dto/create-user.dto';
 import { User } from './users.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { LoginDTO } from '../auth/dto/login.dto';
+import { UpdateUserDTO } from '../auth/dto/update-user-dto';
+import { ArtistsService } from '../artists/artists.service';
+import { Artist } from '../artists/artists.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private artistsService: ArtistsService,
   ) {}
 
   async create(userDTO: CreateUserDTO): Promise<User> {
@@ -27,5 +37,71 @@ export class UsersService {
       throw new UnauthorizedException('Could not find the user');
     }
     return user;
+  }
+
+  async updatePassword(
+    userId: number,
+    updateUserDto: UpdateUserDTO,
+  ): Promise<UpdateResult> {
+    const user = await this.findOneById(userId);
+    console.log('user', user);
+    const passwordMatched = await bcrypt.compare(
+      updateUserDto.oldPassword,
+      user.password,
+    );
+
+    const salt = await bcrypt.genSalt();
+    updateUserDto.password = await bcrypt.hash(updateUserDto.password, salt);
+
+    const newPasswordMatchOld = await bcrypt.compare(
+      updateUserDto.oldPassword,
+      updateUserDto.password,
+    );
+
+    if (passwordMatched) {
+      if (newPasswordMatchOld) {
+        throw new ConflictException("New password can't match old password");
+      }
+      delete updateUserDto.oldPassword;
+      return this.userRepository.update(userId, updateUserDto);
+    } else {
+      throw new UnauthorizedException('Password incorrect');
+    }
+  }
+
+  async findOneById(userId: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) {
+      throw new UnauthorizedException('Could not find the user');
+    }
+    return user;
+  }
+
+  async update(
+    userId: number,
+    updateUserDTO: UpdateUserDTO,
+  ): Promise<UpdateResult | Artist | DeleteResult> {
+    if (updateUserDTO.isArtist) {
+      return this.artistsService.createArtist(userId);
+    }
+    if (updateUserDTO.isArtist === false) {
+      return this.artistsService.deleteArtist(userId);
+    }
+
+    if (updateUserDTO.password) {
+      if (!updateUserDTO.oldPassword) {
+        throw new UnauthorizedException('Please provide the old password');
+      } else {
+        return this.updatePassword(userId, updateUserDTO);
+      }
+    }
+
+    if (Object.keys(updateUserDTO).length === 0) {
+      throw new HttpException(
+        'No fields to update were provided.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    return this.userRepository.update(userId, updateUserDTO);
   }
 }

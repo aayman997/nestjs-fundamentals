@@ -12,6 +12,7 @@ import { Artist } from './artists/artists.entity';
 import { User } from './users/users.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ArtistsModule } from './artists/artists.module';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -38,6 +39,7 @@ const proConfig = { port: 4000 };
     SongsModule,
     AuthModule,
     UsersModule,
+    ArtistsModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,3 +1,5 @@
+import { User } from '../users/users.entity';
+
 export interface PayloadType {
   email: string;
   userId: number;
@@ -6,6 +8,10 @@ export interface PayloadType {
 
 export interface AuthenticatedRequest extends Request {
   user: PayloadType;
+}
+
+export interface ProfileRequest extends Request {
+  user: User;
 }
 
 export type Enable2FAType = {

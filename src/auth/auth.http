@@ -5,9 +5,12 @@ Content-Type: application/json
 {
   "firstName": "Martin",
   "lastName": "Garrix",
-  "email": "user123156@gmail.com",
+  "email": "user12315s6@gmail.com",
   "password": "123456"
 }
+
+> {% client.global.set("api_key", response.body.apiKey); %}
+
 
 ### User login
 POST http://localhost:3000/auth/login
@@ -55,3 +58,8 @@ Authorization: Bearer {{auth_token}}
 GET http://localhost:3000/auth/disable-2fa
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
+
+### get profile with api key
+GET http://localhost:3000/auth/profile
+Content-Type: application/json
+Authorization: Bearer d1d69096-39e0-4cc3-863e-16d7f5237e31

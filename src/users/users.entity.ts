@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Playlist } from '../playlists/playlists.entity';
 
 @Entity('users')
 export class User {
@@ -28,6 +29,6 @@ export class User {
   @Column()
   apiKey: string;
 
-  // @Column()
-  // phone: string;
+  @OneToMany(() => Playlist, (playList) => playList.user)
+  playLists: Playlist[];
 }

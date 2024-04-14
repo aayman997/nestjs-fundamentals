@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ArtistsModule } from './artists/artists.module';
 import { dataSourceOptions } from '../db/data-source';
+import { SeedModule } from './seed/seed.module';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -30,6 +31,7 @@ const proConfig = { port: 4000 };
     AuthModule,
     UsersModule,
     ArtistsModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [

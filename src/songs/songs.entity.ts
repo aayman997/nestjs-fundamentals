@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
 import { Artist } from '../artists/artists.entity';
+import { Playlist } from '../playlists/playlists.entity';
 
 @Entity('songs')
 export class Song {
@@ -21,4 +22,7 @@ export class Song {
   @ManyToMany(() => Artist, (artist) => artist.songs, { cascade: true })
   @JoinTable({ name: 'songs_artists' })
   artists: Artist[];
+
+  @ManyToOne(() => Playlist, (playList) => playList.songs)
+  playList: Playlist;
 }

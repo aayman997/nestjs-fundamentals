@@ -1,11 +1,4 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  HttpException,
-  HttpStatus,
-  ConflictException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, HttpException, HttpStatus, ConflictException, NotFoundException } from '@nestjs/common';
 import { CreateUserDTO } from '../auth/dto/create-user.dto';
 import { User } from './users.entity';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
@@ -54,23 +47,14 @@ export class UsersService {
     return user;
   }
 
-  async updatePassword(
-    userId: number,
-    updateUserDto: UpdateUserDTO,
-  ): Promise<UpdateResult> {
+  async updatePassword(userId: number, updateUserDto: UpdateUserDTO): Promise<UpdateResult> {
     const user = await this.findById(userId);
-    const passwordMatched = await bcrypt.compare(
-      updateUserDto.oldPassword,
-      user.password,
-    );
+    const passwordMatched = await bcrypt.compare(updateUserDto.oldPassword, user.password);
 
     const salt = await bcrypt.genSalt();
     updateUserDto.password = await bcrypt.hash(updateUserDto.password, salt);
 
-    const newPasswordMatchOld = await bcrypt.compare(
-      updateUserDto.oldPassword,
-      updateUserDto.password,
-    );
+    const newPasswordMatchOld = await bcrypt.compare(updateUserDto.oldPassword, updateUserDto.password);
 
     if (passwordMatched) {
       if (newPasswordMatchOld) {
@@ -91,10 +75,7 @@ export class UsersService {
     return user;
   }
 
-  async update(
-    userId: number,
-    updateUserDTO: UpdateUserDTO,
-  ): Promise<UpdateResult | Artist | DeleteResult> {
+  async update(userId: number, updateUserDTO: UpdateUserDTO): Promise<UpdateResult | Artist | DeleteResult> {
     if (updateUserDTO.isArtist) {
       return this.artistsService.createArtist(userId);
     }
@@ -111,18 +92,12 @@ export class UsersService {
     }
 
     if (Object.keys(updateUserDTO).length === 0) {
-      throw new HttpException(
-        'No fields to update were provided.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('No fields to update were provided.', HttpStatus.BAD_REQUEST);
     }
     return this.userRepository.update(userId, updateUserDTO);
   }
 
-  async updateSecretKey(
-    userId: number,
-    twoFASecret: string,
-  ): Promise<UpdateResult> {
+  async updateSecretKey(userId: number, twoFASecret: string): Promise<UpdateResult> {
     return this.userRepository.update(userId, {
       twoFASecret,
       enable2FA: true,

@@ -19,10 +19,7 @@ export class AuthService {
 
   async login(loginDTO: LoginDTO): Promise<AuthLoginReturnType> {
     const user = await this.userService.findOne(loginDTO);
-    const passwordMatched = await bcrypt.compare(
-      loginDTO.password,
-      user.password,
-    );
+    const passwordMatched = await bcrypt.compare(loginDTO.password, user.password);
 
     if (passwordMatched) {
       delete user.password;
@@ -59,10 +56,7 @@ export class AuthService {
     return { secret: user.twoFASecret };
   }
 
-  async validate2FA(
-    userId: number,
-    token: string,
-  ): Promise<{ verified: boolean }> {
+  async validate2FA(userId: number, token: string): Promise<{ verified: boolean }> {
     try {
       const user = await this.userService.findById(userId);
       const verified = speakeasy.totp.verify({

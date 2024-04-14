@@ -18,6 +18,4 @@ export type Enable2FAType = {
   secret: string;
 };
 
-export type AuthLoginReturnType =
-  | { accessToken: string }
-  | { validate2FA: string; message: string };
+export type AuthLoginReturnType = { accessToken: string } | { validate2FA: string; message: string };

@@ -4,11 +4,7 @@ import { Song } from './songs.entity';
 import { CreateSongDto } from './dto/create-song.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateSongDto } from './dto/update-song.dto';
-import {
-  IPaginationOptions,
-  Pagination,
-  paginate,
-} from 'nestjs-typeorm-paginate';
+import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { Artist } from '../artists/artists.entity';
 
 @Injectable({ scope: Scope.TRANSIENT })
@@ -43,17 +39,10 @@ export class SongsService {
     return this.songsRepository.findOneBy({ id });
   }
 
-  async update(
-    id: number,
-    recordToUpdate: UpdateSongDto,
-  ): Promise<UpdateResult> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async update(id: number, recordToUpdate: UpdateSongDto): Promise<UpdateResult> {
     const { artists: _artists, ...modifiedRecord } = recordToUpdate;
     if (Object.keys(recordToUpdate).length === 0) {
-      throw new HttpException(
-        'No fields to update were provided.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('No fields to update were provided.', HttpStatus.BAD_REQUEST);
     }
     let artists: Artist[];
     if (recordToUpdate.artists.length) {
@@ -61,10 +50,7 @@ export class SongsService {
         id: In(recordToUpdate.artists),
       });
     }
-    return this.songsRepository.update(
-      { id },
-      { ...modifiedRecord, ...(recordToUpdate.artists.length && { artists }) },
-    );
+    return this.songsRepository.update({ id }, { ...modifiedRecord, ...(recordToUpdate.artists.length && { artists }) });
   }
 
   async remove(id: number): Promise<DeleteResult> {

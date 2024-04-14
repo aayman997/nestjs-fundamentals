@@ -1,12 +1,4 @@
-import {
-  IsString,
-  IsOptional,
-  IsArray,
-  IsDateString,
-  IsMilitaryTime,
-  ArrayMinSize,
-  IsNumber,
-} from 'class-validator';
+import { IsString, IsOptional, IsArray, IsDateString, IsMilitaryTime, ArrayMinSize, IsNumber } from 'class-validator';
 
 export class UpdateSongDto {
   @IsString()

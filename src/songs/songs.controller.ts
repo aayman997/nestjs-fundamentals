@@ -44,10 +44,7 @@ export class SongsController {
 
   @Get(':id')
   findOne(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
+    @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }))
     id: number,
   ): Promise<Song> {
     return this.songsService.findOne(id);
@@ -55,10 +52,7 @@ export class SongsController {
 
   @Put(':id')
   update(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
+    @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }))
     id: number,
     @Body() updateSongDTO: UpdateSongDto,
   ): Promise<UpdateResult> {
@@ -67,10 +61,7 @@ export class SongsController {
 
   @Delete(':id')
   delete(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
+    @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }))
     id: number,
   ): Promise<DeleteResult> {
     return this.songsService.remove(id);

@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  UseGuards,
-  Request,
-  Patch,
-  Get,
-} from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/users.entity';
 import { CreateUserDTO } from './dto/create-user.dto';
@@ -14,13 +6,8 @@ import { AuthService } from './auth.service';
 import { LoginDTO } from './dto/login.dto';
 import { UpdateUserDTO } from './dto/update-user-dto';
 import { JwtAuthGuard } from './jwt-auth-guard.service';
-import { UpdateResult, DeleteResult } from 'typeorm';
-import {
-  AuthenticatedRequest,
-  Enable2FAType,
-  AuthLoginReturnType,
-  ProfileRequest,
-} from './types';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { AuthLoginReturnType, AuthenticatedRequest, Enable2FAType, ProfileRequest } from './types';
 import { Artist } from '../artists/artists.entity';
 import { ValidateTokenDTO } from './dto/validate-token.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -61,15 +48,9 @@ export class AuthController {
 
   @Post('validate-2fa')
   @UseGuards(JwtAuthGuard)
-  validate2FA(
-    @Request() req: AuthenticatedRequest,
-    @Body() validateTokenDTO: ValidateTokenDTO,
-  ): Promise<{ verified: boolean }> {
+  validate2FA(@Request() req: AuthenticatedRequest, @Body() validateTokenDTO: ValidateTokenDTO): Promise<{ verified: boolean }> {
     console.log('req.user', req.user);
-    return this.authService.validate2FA(
-      req.user.userId,
-      validateTokenDTO.token,
-    );
+    return this.authService.validate2FA(req.user.userId, validateTokenDTO.token);
   }
 
   @Get('disable-2fa')

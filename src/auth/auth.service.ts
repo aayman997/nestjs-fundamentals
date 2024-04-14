@@ -8,6 +8,7 @@ import { PayloadType, Enable2FAType, AuthLoginReturnType } from './types';
 import * as speakeasy from 'speakeasy';
 import { UpdateResult } from 'typeorm';
 import { User } from '../users/users.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -15,12 +16,12 @@ export class AuthService {
     private userService: UsersService,
     private jwtService: JwtService,
     private artistsService: ArtistsService,
+    private configService: ConfigService,
   ) {}
 
   async login(loginDTO: LoginDTO): Promise<AuthLoginReturnType> {
     const user = await this.userService.findOne(loginDTO);
     const passwordMatched = await bcrypt.compare(loginDTO.password, user.password);
-
     if (passwordMatched) {
       delete user.password;
       const payload: PayloadType = { email: user.email, userId: user.id };
@@ -32,7 +33,7 @@ export class AuthService {
 
       if (user.enable2FA && user.twoFASecret) {
         return {
-          validate2FA: `${process.env.APP_HOST}:${process.env.APP_PORT}/auth/validate-2fa`,
+          validate2FA: `${this.configService.get('APP_HOST')}:${this.configService.get('APP_PORT')}/auth/validate-2fa`,
           message: 'Please enter the OTP from your authentication App',
         };
       }

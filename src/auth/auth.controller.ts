@@ -5,6 +5,7 @@ import {
   UseGuards,
   Request,
   Patch,
+  Get,
 } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/users.entity';
@@ -14,8 +15,13 @@ import { LoginDTO } from './dto/login.dto';
 import { UpdateUserDTO } from './dto/update-user-dto';
 import { JwtAuthGuard } from './jwt-auth-guard.service';
 import { UpdateResult, DeleteResult } from 'typeorm';
-import { AuthenticatedRequest } from './types';
+import {
+  AuthenticatedRequest,
+  Enable2FAType,
+  AuthLoginReturnType,
+} from './types';
 import { Artist } from '../artists/artists.entity';
+import { ValidateTokenDTO } from './dto/validate-token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -30,7 +36,7 @@ export class AuthController {
   }
 
   @Post('login')
-  login(@Body() loginDTO: LoginDTO): Promise<{ accessToken: string }> {
+  login(@Body() loginDTO: LoginDTO): Promise<AuthLoginReturnType> {
     return this.authService.login(loginDTO);
   }
 
@@ -42,5 +48,31 @@ export class AuthController {
   ): Promise<UpdateResult | Artist | DeleteResult> {
     const { userId } = request.user;
     return this.usersService.update(userId, updateUserDTO);
+  }
+
+  @Get('enable-2fa')
+  @UseGuards(JwtAuthGuard)
+  enable2FA(@Request() req: AuthenticatedRequest): Promise<Enable2FAType> {
+    console.log('req.user', req.user);
+    return this.authService.enable2FA(req.user.userId);
+  }
+
+  @Post('validate-2fa')
+  @UseGuards(JwtAuthGuard)
+  validate2FA(
+    @Request() req: AuthenticatedRequest,
+    @Body() validateTokenDTO: ValidateTokenDTO,
+  ): Promise<{ verified: boolean }> {
+    console.log('req.user', req.user);
+    return this.authService.validate2FA(
+      req.user.userId,
+      validateTokenDTO.token,
+    );
+  }
+
+  @Get('disable-2fa')
+  @UseGuards(JwtAuthGuard)
+  disable2FA(@Request() req: AuthenticatedRequest): Promise<UpdateResult> {
+    return this.authService.disable2FA(req.user.userId);
   }
 }

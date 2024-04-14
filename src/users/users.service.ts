@@ -43,8 +43,7 @@ export class UsersService {
     userId: number,
     updateUserDto: UpdateUserDTO,
   ): Promise<UpdateResult> {
-    const user = await this.findOneById(userId);
-    console.log('user', user);
+    const user = await this.findById(userId);
     const passwordMatched = await bcrypt.compare(
       updateUserDto.oldPassword,
       user.password,
@@ -69,7 +68,7 @@ export class UsersService {
     }
   }
 
-  async findOneById(userId: number): Promise<User> {
+  async findById(userId: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ id: userId });
     if (!user) {
       throw new UnauthorizedException('Could not find the user');
@@ -103,5 +102,22 @@ export class UsersService {
       );
     }
     return this.userRepository.update(userId, updateUserDTO);
+  }
+
+  async updateSecretKey(
+    userId: number,
+    twoFASecret: string,
+  ): Promise<UpdateResult> {
+    return this.userRepository.update(userId, {
+      twoFASecret,
+      enable2FA: true,
+    });
+  }
+
+  async disable2FA(userId: number): Promise<UpdateResult> {
+    return this.userRepository.update(userId, {
+      enable2FA: false,
+      twoFASecret: null,
+    });
   }
 }

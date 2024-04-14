@@ -4,16 +4,17 @@ import {
   HttpException,
   HttpStatus,
   ConflictException,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDTO } from '../auth/dto/create-user.dto';
 import { User } from './users.entity';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
-import { LoginDTO } from '../auth/dto/login.dto';
 import { UpdateUserDTO } from '../auth/dto/update-user-dto';
 import { ArtistsService } from '../artists/artists.service';
 import { Artist } from '../artists/artists.entity';
+import { LoginDTO } from '../auth/dto/login.dto';
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,12 @@ export class UsersService {
   ) {}
 
   async create(userDTO: CreateUserDTO): Promise<User> {
+    const isUser = await this.userRepository.findOneBy({
+      email: userDTO.email,
+    });
+    if (isUser) {
+      throw new ConflictException('User already exists');
+    }
     const salt = await bcrypt.genSalt();
     userDTO.password = await bcrypt.hash(userDTO.password, salt);
     const user = await this.userRepository.save(userDTO);
@@ -34,7 +41,7 @@ export class UsersService {
   async findOne(data: LoginDTO): Promise<User> {
     const user = await this.userRepository.findOneBy({ email: data.email });
     if (!user) {
-      throw new UnauthorizedException('Could not find the user');
+      throw new NotFoundException('Could not find the user');
     }
     return user;
   }

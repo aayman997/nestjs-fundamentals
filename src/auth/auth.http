@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "firstName": "Martin",
   "lastName": "Garrix",
-  "email": "martingarrix@gmail.com",
+  "email": "user123156@gmail.com",
   "password": "123456"
 }
 
@@ -18,10 +18,12 @@ Content-Type: application/json
   "password": "123456"
 }
 
+> {% client.global.set("auth_token", response.body.accessToken); %}
+
 ### update user
 PATCH http://localhost:3000/auth/update-user
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbmdhcnJpeEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImlhdCI6MTcxMjUzMTMyNSwiZXhwIjoxNzEyNjE3NzI1fQ.pNkPnv3Zozg940ETNMil6eSyM8agZlUhIs6sgInaw9c
+Authorization: Bearer {{auth_token}}
 
 {
   "oldPassword": "123456",
@@ -32,18 +34,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpb
 ### Get User
 GET http://localhost:3000/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbmdhcnJpeEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoxMywiaWF0IjoxNzEyNTMxMzM4LCJleHAiOjE3MTI2MTc3Mzh9.ymoWuHPKhIwyCA-u8-S2rrfVOk7v7bhZdHMoxErUNeo
+Authorization: Bearer {{auth_token}}
 
 
 ### enable-2fa
 GET http://localhost:3000/auth/enable-2fa
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbmdhcnJpeEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoxMywiaWF0IjoxNzEzMDUzMzg2LCJleHAiOjE3MTMxMzk3ODZ9.lTk1GrHMJ4pxlhLUZ_yh9KisZKa-G0C74e1_HXLxYz8
+Authorization: Bearer {{auth_token}}
 
 ### validate-2fa
 POST http://localhost:3000/auth/validate-2fa
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbmdhcnJpeEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoxMywiaWF0IjoxNzEzMDQ5NzEwLCJleHAiOjE3MTMxMzYxMTB9.94eZx5qCPI32QMTdFuLNrqih4BuG5BxnL1oWb7d9x6k
+Authorization: Bearer {{auth_token}}
 
 {
   "token": "322969"
@@ -52,4 +54,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpb
 ### disable-2fa
 GET http://localhost:3000/auth/disable-2fa
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcnRpbmdhcnJpeEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoxMywiaWF0IjoxNzEzMDQ5NzEwLCJleHAiOjE3MTMxMzYxMTB9.94eZx5qCPI32QMTdFuLNrqih4BuG5BxnL1oWb7d9x6k
+Authorization: Bearer {{auth_token}}

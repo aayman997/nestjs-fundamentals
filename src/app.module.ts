@@ -12,6 +12,7 @@ import { SeedModule } from './seed/seed.module';
 import configuration from './config/configuration';
 import { validate } from '../env.validation';
 
+console.log('process.env', process.env);
 console.log('process.env.APP_HOST', process.env.APP_HOST);
 console.log('process.env.APP_PORT', process.env.APP_PORT);
 console.log('process.env.JWT_SECRET', process.env.JWT_SECRET);
@@ -25,7 +26,7 @@ console.log('process.env.DATABASE_NAME', process.env.DATABASE_NAME);
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}.local`, `${process.cwd()}/.env.${process.env.NODE_ENV}`],
+      envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}.local`, `${process.cwd()}/.env.${process.env.NODE_ENV}`, '.env'],
       ignoreEnvFile: process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT_NAME === 'production',
       isGlobal: true,
       load: [configuration],

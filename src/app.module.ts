@@ -12,11 +12,14 @@ import { SeedModule } from './seed/seed.module';
 import configuration from './config/configuration';
 import { validate } from '../env.validation';
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('process.env.RAILWAY_ENVIRONMENT_NAME', process.env.RAILWAY_ENVIRONMENT_NAME);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}.local`, `${process.cwd()}/.env.${process.env.NODE_ENV}`],
-      ignoreEnvFile: process.env.NODE_ENV === 'production',
+      ignoreEnvFile: process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT_NAME === 'production',
       isGlobal: true,
       load: [configuration],
       validate: validate,

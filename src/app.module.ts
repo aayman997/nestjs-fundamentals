@@ -12,8 +12,15 @@ import { SeedModule } from './seed/seed.module';
 import configuration from './config/configuration';
 import { validate } from '../env.validation';
 
+console.log('process.env.APP_HOST', process.env.APP_HOST);
+console.log('process.env.APP_PORT', process.env.APP_PORT);
+console.log('process.env.JWT_SECRET', process.env.JWT_SECRET);
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-console.log('process.env.RAILWAY_ENVIRONMENT_NAME', process.env.RAILWAY_ENVIRONMENT_NAME);
+console.log('process.env.DATABASE_HOST', process.env.DATABASE_HOST);
+console.log('process.env.DATABASE_PORT', process.env.DATABASE_PORT);
+console.log('process.env.DATABASE_USERNAME', process.env.DATABASE_USERNAME);
+console.log('process.env.DATABASE_PASSWORD', process.env.DATABASE_PASSWORD);
+console.log('process.env.DATABASE_NAME', process.env.DATABASE_NAME);
 
 @Module({
   imports: [

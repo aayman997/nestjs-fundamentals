@@ -1,6 +1,9 @@
 import { DataSourceOptions, DataSource } from 'typeorm';
 import { TypeOrmModuleOptions, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],

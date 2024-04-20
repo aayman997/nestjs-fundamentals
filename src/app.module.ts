@@ -16,7 +16,7 @@ import { validate } from '../env.validation';
   imports: [
     ConfigModule.forRoot({
       envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}.local`, `${process.cwd()}/.env.${process.env.NODE_ENV}`],
-      ignoreEnvFile: process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT_NAME === 'production',
+      ignoreEnvFile: process.env.RAILWAY_ENVIRONMENT_NAME === 'production',
       isGlobal: true,
       load: [configuration],
       validate: validate,

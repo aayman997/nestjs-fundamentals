@@ -33,7 +33,7 @@ export class AuthService {
 
       if (user.enable2FA && user.twoFASecret) {
         return {
-          validate2FA: `${this.configService.get('APP_HOST')}:${this.configService.get('APP_PORT')}/auth/validate-2fa`,
+          validate2FA: `${this.configService.get('APP_HOST')}:${this.configService.get('PORT')}/auth/validate-2fa`,
           message: 'Please enter the OTP from your authentication App',
         };
       }

@@ -14,7 +14,7 @@ interface ConfigReturnType {
 
 export default (): ConfigReturnType => ({
   appHost: process.env.APP_HOST,
-  port: parseInt(process.env.APP_PORT),
+  port: parseInt(process.env.PORT),
   jwtSecret: process.env.JWT_SECRET,
   NODE_ENV: process.env.NODE_ENV,
   databaseHost: process.env.DATABASE_HOST,

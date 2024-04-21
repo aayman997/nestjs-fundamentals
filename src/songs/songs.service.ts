@@ -53,7 +53,7 @@ export class SongsService {
     return this.songsRepository.update({ id }, { ...modifiedRecord, ...(recordToUpdate.artists.length && { artists }) });
   }
 
-  async remove(id: number): Promise<DeleteResult> {
+  async delete(id: number): Promise<DeleteResult> {
     return this.songsRepository.delete({ id });
   }
 

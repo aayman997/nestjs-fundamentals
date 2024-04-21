@@ -79,6 +79,6 @@ export class SongsController {
     @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }))
     id: number,
   ): Promise<DeleteResult> {
-    return this.songsService.remove(id);
+    return this.songsService.delete(id);
   }
 }

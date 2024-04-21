@@ -8,7 +8,7 @@ export class UpdateSongDto {
   })
   @IsString()
   @IsOptional()
-  readonly title: string;
+  readonly title?: string;
 
   @ApiProperty({
     example: '[1, 2]',
@@ -18,7 +18,7 @@ export class UpdateSongDto {
   @IsArray()
   @ArrayMinSize(1)
   @IsNumber({}, { each: true })
-  readonly artists: number[];
+  readonly artists?: number[];
 
   @ApiProperty({
     example: '2023-05-11',
@@ -26,7 +26,7 @@ export class UpdateSongDto {
   })
   @IsOptional()
   @IsDateString()
-  readonly releasedDate: Date;
+  readonly releasedDate?: Date;
 
   @ApiProperty({
     example: '02:34',
@@ -35,7 +35,7 @@ export class UpdateSongDto {
   @IsString()
   @IsOptional()
   @IsMilitaryTime()
-  readonly duration: Date;
+  readonly duration?: string;
 
   @ApiProperty({
     example: 'I should told you that I wanted you for me You make it really hard to sleep You keep me up Baby...',
@@ -43,5 +43,5 @@ export class UpdateSongDto {
   })
   @IsString()
   @IsOptional()
-  readonly lyrics: string;
+  readonly lyrics?: string;
 }

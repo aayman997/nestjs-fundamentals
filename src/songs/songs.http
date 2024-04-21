@@ -1,10 +1,9 @@
 # Create new song
 POST http://localhost:3000/songs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFoYWJkZWxheml6OTcxQGdtYWlsLmNvbSIsInVzZXJJZCI6NiwiYXJ0aXN0SWQiOjIsImlhdCI6MTcxMjUyNjk1NCwiZXhwIjoxNzEyNjEzMzU0fQ.1ayGYurSiCWDMvpVvR2b7aKWqk7ojfsieA8ChAJ7BeY
+Authorization: Bearer {{jwt_token}}
 
 {
-  "title": "You for me",
   "artists": [
     1,
     2

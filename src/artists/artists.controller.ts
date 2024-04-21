@@ -11,7 +11,7 @@ export class ArtistsController {
   @Get(':id')
   @ApiOperation({ summary: 'Find the artist with a given id' })
   @ApiResponse({ status: 200, description: 'It will return the artist matching the given id in the response' })
-  findArtists(
+  findArtist(
     @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }))
     id: number,
   ): Promise<Artist> {

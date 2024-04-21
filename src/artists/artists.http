@@ -1,3 +1,7 @@
+GET http://localhost:3000/artists/1
+Accept: application/json
+
+###
 ### Create new user
 POST http://localhost:3000/artists
 Content-Type: application/json
@@ -8,3 +12,4 @@ Content-Type: application/json
   "email": "ahabdelaziz971@gmail.com",
   "password": "123456"
 }
+

@@ -34,7 +34,7 @@ export class CreateSongDto {
   })
   @IsString()
   @IsMilitaryTime()
-  readonly duration: Date;
+  readonly duration: string;
 
   @ApiProperty({
     example: 'I should told you that I wanted you for me You make it really hard to sleep You keep me up Baby...',

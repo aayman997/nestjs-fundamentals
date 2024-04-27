@@ -36,7 +36,7 @@ export class SongsService {
   }
 
   async findOne(id: number): Promise<Song> {
-    return this.songsRepository.findOneBy({ id });
+    return this.songsRepository.findOneOrFail({ where: { id } });
   }
 
   async update(id: number, recordToUpdate: UpdateSongDto): Promise<UpdateResult> {

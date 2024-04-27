@@ -4,6 +4,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt_token}}
 
 {
+  "title": "new Song test delete",
   "artists": [
     1,
     2
@@ -37,4 +38,5 @@ Content-Type: application/json
 
 ###
 # Delete a song
-DELETE http://localhost:3000/songs/16
+DELETE http://localhost:3000/songs/22
+Authorization: Bearer {{jwt_token}}
